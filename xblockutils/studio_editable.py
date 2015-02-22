@@ -18,7 +18,6 @@ from xblock.fields import Scope, JSONField, Integer, Float, Boolean, String
 from xblock.exceptions import JsonHandlerError
 from xblock.fragment import Fragment
 from xblock.validation import Validation
-# from django.views.decorators.csrf import csrf_exempt
 
 from xblockutils.resources import ResourceLoader
 
@@ -52,8 +51,8 @@ class StudioEditableXBlockMixin(object):
     """
     editable_fields = ()  # Set this to a list of the names of fields to appear in the editor
 
-    def student_view(self, context):
-    # def studio_view(self, context):
+    # def student_view(self, context):
+    def studio_view(self, context):
         """
         Render a form for editing this XBlock
         """
@@ -126,7 +125,6 @@ class StudioEditableXBlockMixin(object):
                 info['values'] = values
         return info
 
-    # @csrf_exempt
     @XBlock.json_handler
     def submit_studio_edits(self, data, suffix=''):
         """
