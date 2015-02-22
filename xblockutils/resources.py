@@ -3,7 +3,8 @@ import sys
 
 import pkg_resources
 from django.template import Context, Template
-
+# from django.core.context_processors import csrf
+# from django.shortcuts import render_to_response
 
 class ResourceLoader(object):
     """Loads resources relative to the module named by the module_name parameter."""
