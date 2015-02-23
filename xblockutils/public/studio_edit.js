@@ -2,10 +2,10 @@
 function StudioEditableXBlockMixin(runtime, element) {
     "use strict";
 
-    //TODO: replace with django's javascript i18n utilities
-    function gettext(s) {
-        return s;
-    }
+    // //TODO: replace with django's javascript i18n utilities
+    // function gettext(s) {
+    //     return s;
+    // }
 
     var fields = [];
     var tinyMceAvailable = (typeof $.fn.tinymce !== 'undefined'); // Studio includes a copy of tinyMCE and its jQuery plugin
@@ -81,22 +81,22 @@ function StudioEditableXBlockMixin(runtime, element) {
 
     var studio_submit = function (data) {
         var handlerUrl = runtime.handlerUrl(element, 'submit_studio_edits');
-        // runtime.notify('save', {
-        //     state: 'start',
-        //     message: gettext("Saving")
-        // });
+        runtime.notify('save', {
+            state: 'start',
+            message: gettext("Saving")
+        });
         $.ajax({
             type: "POST",
             url: handlerUrl,
             data: JSON.stringify(data),
-            // dataType: "json",
-            // global: false, // Disable Studio's error handling that conflicts with studio's notify('save') and notify('cancel') :-/
+            dataType: "json",
+            global: false, // Disable Studio's error handling that conflicts with studio's notify('save') and notify('cancel') :-/
             success: function (response) {
                 console.log("response");
                 console.dir(response);
-                // runtime.notify('save', {
-                //     state: 'end'
-                // });
+                runtime.notify('save', {
+                    state: 'end'
+                });
             }
         }).fail(function (jqXHR) {
             var message = gettext("This may be happening because of an error with our server or your internet connection. Try refreshing the page or making sure you are online.");
@@ -107,10 +107,10 @@ function StudioEditableXBlockMixin(runtime, element) {
                     message = jqXHR.responseText.substr(0, 300);
                 }
             }
-            // runtime.notify('error', {
-            //     title: gettext("Unable to update settings"),
-            //     message: message
-            // });
+            runtime.notify('error', {
+                title: gettext("Unable to update settings"),
+                message: message
+            });
         });
     };
 
@@ -134,6 +134,6 @@ function StudioEditableXBlockMixin(runtime, element) {
 
     $(element).find('.cancel-button').bind('click', function (e) {
         e.preventDefault();
-        // runtime.notify('cancel', {});
+        runtime.notify('cancel', {});
     });
 }
