@@ -1,11 +1,6 @@
 /* Javascript for StudioEditableXBlockMixin. */
 function StudioEditableXBlockMixin(runtime, element) {
-    "use strict";
-
-    // //TODO: replace with django's javascript i18n utilities
-    // function gettext(s) {
-    //     return s;
-    // }
+    // "use strict";
 
     var fields = [];
     var tinyMceAvailable = (typeof $.fn.tinymce !== 'undefined'); // Studio includes a copy of tinyMCE and its jQuery plugin

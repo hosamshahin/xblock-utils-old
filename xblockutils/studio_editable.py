@@ -26,7 +26,6 @@ from xblockutils.resources import ResourceLoader
 log = logging.getLogger(__name__)
 loader = ResourceLoader(__name__)
 
-
 class FutureFields(object):
     """
     A helper class whose attribute values come from the specified dictionary or fallback object.
@@ -51,7 +50,7 @@ class StudioEditableXBlockMixin(object):
     """
     editable_fields = ()  # Set this to a list of the names of fields to appear in the editor
 
-    # def student_view(self, context):
+
     def studio_view(self, context):
         """
         Render a form for editing this XBlock
@@ -66,8 +65,9 @@ class StudioEditableXBlockMixin(object):
             if field_info is not None:
                 context["fields"].append(field_info)
         fragment.content = loader.render_template('templates/studio_edit.html', context)
-        fragment.add_javascript(loader.load_unicode('public/studio_edit.js'))
-        fragment.initialize_js('StudioEditableXBlockMixin')
+        fragment.add_javascript(loader.load_unicode('public/js/src/studio_edit.js'))
+        # Function StudioEditableXBlockMixin will be called from subclass client side JavaScript
+        # fragment.initialize_js('StudioEditableXBlockMixin')
         return fragment
 
     def _make_field_info(self, field_name, field):
@@ -108,6 +108,7 @@ class StudioEditableXBlockMixin(object):
             # Convert value to JSON string if we're treating this field generically:
             info["value"] = json.dumps(info["value"])
             info["default"] = json.dumps(info["default"])
+
         if field.values and not isinstance(field, Boolean):
             info['has_values'] = True
             # This field has only a limited number of pre-defined options.
